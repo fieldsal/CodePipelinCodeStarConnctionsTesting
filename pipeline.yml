@@ -1,0 +1,49 @@
+metadata:
+  created: '2021-01-25T10:26:41.469000+00:00'
+  pipelineArn: arn:aws:codepipeline:eu-west-1:601993702382:mywifeheheh
+  updated: '2021-01-25T10:26:41.469000+00:00'
+pipeline:
+  artifactStore:
+    location: codepipeline-eu-west-1-683713473851
+    type: S3
+  name: mywifeheheh
+  roleArn: arn:aws:iam::601993702382:role/service-role/AWSCodePipelineServiceRole-eu-west-1-mywifeheheh
+  stages:
+  - actions:
+    - actionTypeId:
+        category: Source
+        owner: AWS
+        provider: CodeStarSourceConnection
+        version: '1'
+      configuration:
+        BranchName: main
+        ConnectionArn: arn:aws:codestar-connections:eu-west-1:601993702382:connection/1325ff78-dbf1-49c2-aa45-57d8a7d6d8f3
+        FullRepositoryId: fieldsal/CodePipelinCodeStarConnctionsTesting
+        OutputArtifactFormat: CODE_ZIP
+      inputArtifacts: []
+      name: Source
+      namespace: SourceVariables
+      outputArtifacts:
+      - name: SourceArtifact
+      region: eu-west-1
+      runOrder: 1
+    name: Source
+  - actions:
+    - actionTypeId:
+        category: Deploy
+        owner: AWS
+        provider: S3
+        version: '1'
+      configuration:
+        BucketName: eatingoranges
+        Extract: 'false'
+        ObjectKey: app.zip
+      inputArtifacts:
+      - name: SourceArtifact
+      name: Deploy
+      namespace: DeployVariables
+      outputArtifacts: []
+      region: eu-west-1
+      runOrder: 1
+    name: Deploy
+  version: 1
